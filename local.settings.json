@@ -3,5 +3,10 @@
   "Values": {
     "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=genericdom;AccountKey=3LOjmj/G5SGpnNtT5uR6YM7Wqn5UhCw6XaYaJOvSw30CYvsjQLdSdGAqdbKZzwHXQ9Rzz1KgmT64YP6qlr6qoA==",
     "FUNCTIONS_WORKER_RUNTIME": "python"
+  },
+  "Host": {
+    "LocalHttpPort": 7071,
+    "CORS": "*",
+    "CORSCredentials": false
   }
 }
