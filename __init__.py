@@ -1,24 +1,25 @@
 import logging
-
 import azure.functions as func
-
+import json
+import os
+from ..Services.SentimentService import SentimentService
 
 def main(req: func.HttpRequest) -> func.HttpResponse:
     logging.info('Python HTTP trigger function processed a request.')
+    try:
+        req_body = req.get_json()
+        article = req_body['Content'].split()
 
-    name = req.params.get('name')
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get('name')
-
-    if name:
-        return func.HttpResponse(f"Hello {name}!")
+        s = SentimentService()
+        pickle_path = os.environ["pickle_path"]
+        logging.info(pickle_path)
+        
+        return func.HttpResponse(json.dumps(s.sentimentAnalysis(article)))
+    except ValueError:
+        pass
     else:
+        content = req_body.get('Content')
         return func.HttpResponse(
-             "Please pass a name on the query string or in the request body",
+             "Please pass content on the query string or in the request body",
              status_code=400
         )
